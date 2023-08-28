@@ -39,8 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # created apps
     'dashboard',
     'patient',
+
+    # installed apps
+    'bootstrap4',
+    'django_filters',
+
 
 
 ]
