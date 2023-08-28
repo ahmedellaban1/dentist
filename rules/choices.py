@@ -5,3 +5,7 @@ TYPE = (
 )
 
 
+TICKET_TYPE = (
+    ('examination', 'كشف'),
+    ('consultation', 'استشاره')
+)
