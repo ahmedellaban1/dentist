@@ -6,6 +6,6 @@ TYPE = (
 
 
 TICKET_TYPE = (
-    ('examination', 'كشف'),
-    ('consultation', 'استشاره')
+    ('كشف', 'كشف'),
+    ('استشاره', 'استشاره')
 )
