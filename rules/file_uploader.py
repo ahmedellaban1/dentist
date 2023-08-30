@@ -13,6 +13,6 @@ def image_uploader(instance, file_name):
     formatted_date = today.strftime("%m-%Y")
     try:
         op = instance.operation
-        return f'Operation_images/{formatted_date}/patient_id_{instance.patient.id}_obj_id_{instance.id}_{random_number}.{extension}'
+        return f'Operation_images/{formatted_date}/patient_id_{instance.operation.patient.id}_{random_number}.{extension}'
     except:
-        return f'{formatted_date}/patient_id_{instance.patient.id}_obj_id_{instance.id}_{random_number}.{extension}'
+        return f'{formatted_date}/patient_id_{instance.operation.patient.id}_obj_id_{instance.id}_{random_number}.{extension}'
