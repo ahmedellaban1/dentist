@@ -4,13 +4,11 @@
 
 
 {% block patients %}
-	<form method="POST" enctype="multipart/form-data" style="text-align:right;">
+	<form method="POST" enctype="multipart/form-data" onsubmit="disableButton(this)"  style="text-align:right;">
 		<h4 class="widget-title" style="text-align:right; font-family:monospace; font-size:30px;">تعديل عملية </h4>
 		{% csrf_token %}
 		{% bootstrap_form form %}
-		{% buttons %}
-			<input class="btn btn-main text-center w-100" type="submit" value="حفظ">
-		{% endbuttons %}
+		<input class="btn btn-main text-center w-100"  type="submit" value="حفظ" id="submitButton">
 	</form>
 
 {% endblock %}

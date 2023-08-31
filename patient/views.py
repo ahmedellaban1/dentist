@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import AddPatientForm, Patient, Operation, AddOperationForm, AddOperationImage, OperationImage
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from .filters import PatientFilter
 
 # Create your views here.
 
@@ -25,11 +26,18 @@ def add_patient(request, *args, **kwargs):
     return render(request, 'add_patient.html', context)
 
 
+@login_required
 def get_patient(request, *args, **kwargs):
     queryset = get_object_or_404(Patient, id=kwargs['id'], full_name=kwargs['full_name'])
+    all_operation = Operation.objects.filter(patient=queryset)
+    total_remaining_amount = 0
+    for i in all_operation:
+        total_remaining_amount += i.remaining_amount
+
     context = {
-        "page_title": "معلومات المريض",
+        "page_title": "معلومات المريض"+f" ( {queryset.id} )",
         "patient": queryset,
+        "total_remaining_amount": total_remaining_amount,
     }
     return render(request, 'profile-details.html', context)
 
@@ -71,7 +79,7 @@ def operation_details(request, *args, **kwargs):
     else:
         form = AddOperationImage()
     context = {
-        "page_title": 'معلومات العملية',
+        "page_title": 'معلومات العملية'+f"( {operation.id} )",
         "form": form,
         'operation': operation,
         "images": images,
@@ -91,7 +99,24 @@ def edit_operation(request, *args, **kwargs):
         form = AddOperationForm(instance=operation)
 
     context = {
-        "page_title": "تعديل عملية",
+        "page_title": f"تعديل عملية {operation.id}",
         "form": form,
     }
     return render(request, 'edit_operation.html', context)
+
+
+@login_required
+def search_patient(request, *args, **kwargs):
+    your_model_filter = PatientFilter(request.GET, queryset=Patient.objects.all())
+    filtered_queryset = your_model_filter.qs
+
+    if not any(request.GET.values()):
+        filtered_queryset = Patient.objects.none()
+
+    context = {
+        "page_title": "بحث",
+        'filter': your_model_filter,
+        'filtered_queryset': filtered_queryset
+    }
+
+    return render(request, 'search_patient.html', context)

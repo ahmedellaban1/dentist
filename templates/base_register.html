@@ -45,7 +45,13 @@
 </head>
 
 <body id="body">
-
+<script>
+    function disableButton(form) {
+        var button = form.querySelector('#submitButton');
+        button.disabled = true;
+        button.value = 'Processing...';
+    }
+</script>
 <section class="signin-page account">
   <div class="container">
     <div class="row">

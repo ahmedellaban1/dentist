@@ -3,15 +3,13 @@
 {% load bootstrap4 %}
 
 {% block form %}
-	<form method="POST" enctype="multipart/form-data" style="text-align:right;">
-		<h4 class="widget-title" style="text-align:right; font-family:monospace; font-size:30px;">إضافة حجز</h4>
-		{% csrf_token %}
-		{% bootstrap_form form %}
-		{% buttons %}
-			<input class="btn btn-main text-center w-100" type="submit" value="حفظ">
-		{% endbuttons %}
-	</form>
 
+<form method="POST" enctype="multipart/form-data" style="text-align:right;" onsubmit="disableButton(this)">
+    <h4 class="widget-title" style="text-align:right; font-family:monospace; font-size:30px;">إضافة حجز</h4>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <input class="btn btn-main text-center w-100" type="submit" value="حفظ" id="submitButton">
+</form>
 {% endblock %}
 
 {% block patients %}

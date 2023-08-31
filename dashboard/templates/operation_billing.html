@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block patients %}
+			{% for bill in billing %}
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<span class="bage">ID : {{bill.id}}</span>
+						<img class="img-responsive" src="{% static 'images/Ticket.png' %}" alt="Ticket-img" />
+					</div>
+					<div class="product-content">
+						<h4> ثمن العملية {{bill.operation.price}}</h4>
+						<h4>  المبلغ المدفوع {{bill.amount_paid}}</h4>
+						<h4>المبلغ المتبقي {{bill.remaining_amount}}</h4>
+						<p>{{bill.datetime}}</p>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+{% endblock %}

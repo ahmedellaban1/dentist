@@ -34,9 +34,19 @@
                 <li>{{operation.name}}<span>: اسم العملية </span></li>
                 <li>{{operation.datetime}}<span>: التاريخ  </span></li>
                 <li>{{operation.price}}<span>: سعر العملية </span></li>
-                <li>{{operation.description}}<span>: وصف العملية </span></li>
+                <li><span>: وصف العملية </span><br>{{operation.description}}</li>
                 <li>{{operation.remaining_amount}}<span>: المبلغ المتبقي  </span></li>
-                <input class="btn btn-main text-center " style="font-size:15px" type="submit" value="إضافة فاتوره">
+
+                  <a href="{% url 'dashboard:operation_billing' id=operation.id %}">
+                    <input class="btn btn-main text-center " style="font-size:15px" type="submit" value="كل الفواتير ">
+                 </a>
+                  {% if operation.remaining_amount > 0 %}
+                 <a href="{% url 'dashboard:billing' id=operation.id %}">
+                    <input class="btn btn-main text-center " style="font-size:15px" type="submit" value="إضافة فاتوره">
+                 </a>
+                  {% else %}
+                  <input class="btn btn-main text-center " disabled style="font-size:15px" type="submit" value="تم السداد">
+                  {% endif %}
 
               </ul>
             </div>
@@ -48,13 +58,11 @@
         <div class="dashboard-wrapper dashboard-user-profile ">
           <div class="media">
             <div class="media-body">
-                <form method="POST" enctype="multipart/form-data" style="text-align:right;">
+                <form method="POST" onsubmit="disableButton(this)" enctype="multipart/form-data" style="text-align:right;">
                     <h4 class="widget-title" style="text-align:right; font-family:monospace; font-size:30px;">إضافة صورة</h4>
                     {% csrf_token %}
                     {% bootstrap_form form %}
-                    {% buttons %}
-                    <input class="btn btn-main text-center w-100" style="font-size:15px" type="submit" value="حفظ">
-                    {% endbuttons %}
+            		<input class="btn btn-main text-center w-100" type="submit" value="حفظ" id="submitButton">
                 </form>
             </div>
           </div>

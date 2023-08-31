@@ -18,15 +18,21 @@
           <div class="media">
 
             <div class="media-body">
-
-                <form method="POST" enctype="multipart/form-data" style="text-align:right;">
-                    <h4 class="widget-title" style="text-align:right; font-family:monospace; font-size:30px;">إضافة فاتوره </h4>
+                {% if disable %}
+                <form method="POST" enctype="multipart/form-data" onsubmit="disableButton(this)" style="text-align:right;">
+                    <a href="{% url 'patient:operation_details' id=operation.patient.id full_name=operation.patient.full_name op_id=operation.id %}">
+                    <h4 class="widget-title" style="text-align:right; font-family:monospace; font-size:30px;">إضافة فاتوره - رقم العملية : {{operation.id}} </h4>
+                        </a>
+                    المبلغ المتبقي {{operation.remaining_amount}}
                     {% csrf_token %}
                     {% bootstrap_form form %}
-                    {% buttons %}
-                    <input class="btn btn-main text-center w-100" type="submit" value="حفظ">
-                    {% endbuttons %}
+                    <input class="btn btn-main text-center w-100" type="submit" value="حفظ" id="submitButton">
                 </form>
+                {% else %}
+                <a href="{% url 'patient:operation_details' id=operation.patient.id full_name=operation.patient.full_name op_id=operation.id %}">
+                <input class="btn btn-main text-center w-100" type="submit" style="font-size:20px" value="تم سداد كامل الفواتير لهذه العملية">
+                </a>
+                {% endif %}
 
             </div>
           </div>

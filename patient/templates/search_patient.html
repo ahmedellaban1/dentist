@@ -1,0 +1,40 @@
+{% extends 'base_profile.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block profile %}
+<form method="get" enctype="multipart/form-data"  onsubmit="disableButton(this)" style="text-align:right;">
+	{% bootstrap_form filter.form %}
+
+		<input class="btn btn-main text-center w-100" type="submit" value="بحث" id="submitButton">
+</form>
+
+
+{% endblock %}
+
+{% block image %}
+
+    <div class="col-md-9">
+
+			<div class="row">
+			<!-- patients -->
+
+	<div class="col-md-9">
+
+			<div class="row">
+			<!-- patients -->
+			<div class="col-md-3">
+			{% for item in filtered_queryset %}
+
+				<div class="product-item">
+					<div class="product-thumb">
+						<a href="{% url 'patient:patient_details' id=item.id full_name=item.full_name %}" target="_blank"><span class="bage">{{item.full_name}}</span></a>
+						<img class="img-responsive" src="{% static 'images/victor_1.png' %}" alt="Ticket-img" />
+                    </div>
+                </div>
+					{% endfor %}
+
+            </div>
+	</div>
+
+{% endblock %}

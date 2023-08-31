@@ -1,6 +1,9 @@
 from django import forms
 from .models import Ticket, Billing
 from rules.help_function import get_date
+from django.core.exceptions import ValidationError
+
+
 
 
 class TicketsForm(forms.ModelForm):
@@ -41,9 +44,13 @@ class TicketsForm(forms.ModelForm):
         self.fields['examinationConsultation'].label = " كشف / استشارة"
         self.fields['examinationConsultation'].dafult_value =''
 
-
+        self.fields['examinationConsultation'].label = " كشف / استشارة"
+        self.fields['examinationConsultation'].dafult_value =''
 class BillingForm(forms.ModelForm):
     class Meta:
         model = Billing
         fields = ['amount_paid']
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['amount_paid'].widget.attrs['placeholder'] = 'ادخل المبلغ المدفوع'
+        self.fields['amount_paid'].label = 'ادخل المبلغ المدفوع'

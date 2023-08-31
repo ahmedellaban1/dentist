@@ -12,7 +12,6 @@ class Patient(models.Model):
     age = models.IntegerField(null=True, blank=True, default=0)
     city = models.CharField(max_length=15, null=False, blank=False)
     description = models.TextField(max_length=1000)
-    continuous_calculation = models.IntegerField(default=0)
 
     def __str__(self):
         return f"patient-name {self.full_name}, user_id {self.user.id} and user username {self.user.username}"
