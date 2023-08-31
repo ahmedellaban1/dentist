@@ -41,3 +41,9 @@ class TicketsForm(forms.ModelForm):
         self.fields['examinationConsultation'].label = " كشف / استشارة"
         self.fields['examinationConsultation'].dafult_value =''
 
+
+class BillingForm(forms.ModelForm):
+    class Meta:
+        model = Billing
+        fields = ['amount_paid']
+

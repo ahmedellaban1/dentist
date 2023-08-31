@@ -24,7 +24,7 @@
 						<div class="preview-meta">
 							<ul>
 								<li>
-									<a href="#">
+									<a href="{% url 'patient:patient_details' id=ticket.patient.id full_name=ticket.patient.full_name %}">
 									<span  data-toggle="modal" data-target="#product-modal">
 										<i class="tf-ion-ios-search-strong"></i>
 									</span>
@@ -47,4 +47,4 @@
 			{% endfor %}
 
 
-{% endblock %}0
+{% endblock %}
