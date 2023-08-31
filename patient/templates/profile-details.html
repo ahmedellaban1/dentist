@@ -1,0 +1,41 @@
+{% extends 'base_profile.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block profile %}
+<section class="user-dashboard page-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-inline dashboard-menu text-center">
+          <li><a href="dashboard.html">الادوية</a></li>
+          <li><a href="order.html">فواتير</a></li>
+          <li><a href="{% url 'patient:add_operation' id=patient.id full_name=patient.full_name %}">العمليات</a></li>
+          <li><a class="active" href="">معلومات المريض</a></li>
+        </ul>
+
+
+        <div class="dashboard-wrapper dashboard-user-profile">
+          <div class="media">
+            <div class="pull-left text-center" href="#!">
+              <img class="media-object user-img" src="{% static 'images/victor_1.png' %}" alt="Image">
+            </div>
+            <div class="media-body">
+              <ul class="user-profile-list" style="text-align:right;">
+                <li>{{patient.full_name}}<span>: اسم المريض </span></li>
+                <li>{{patient.id}}<span>: رقم المريض </span></li>
+                <li>{{patient.phone}}<span>: رقم الهاتف </span></li>
+                <li>{{patient.city}}<span>: البلد  </span></li>
+                <li>{{patient.age}}<span>: العمر  </span></li>
+                <li>{{patient.continuous_calculation}}<span>: حساب جاري  </span></li>
+                <li>{{patient.description}}<span>: الحالة المرضية  </span></li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

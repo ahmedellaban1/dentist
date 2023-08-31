@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block form %}
+	<div class="widget">
+		<h4 class="widget-title" style="text-align:right;">نصائح</h4>
+			<select class="form-control">
+				<option>  اسأل ؟</option>
+				<option>كيفية تسجيل المرضى ؟</option>
+				<option>كيفية تعديل بيانات المرضى ؟</option>
+				<option>كيفية عمل فواتير ؟</option>
+				<option>كيفية البحث داخل النظام ؟</option>
+			</select>
+	</div>
+{% endblock %}
+{% block patients %}
+	<form method="POST" enctype="multipart/form-data" style="text-align:right;">
+		<h4 class="widget-title" style="text-align:right; font-family:monospace; font-size:30px;">إضافة مريض </h4>
+		{% csrf_token %}
+		{% bootstrap_form form %}
+		{% buttons %}
+			<input class="btn btn-main text-center w-100" type="submit" value="حفظ">
+		{% endbuttons %}
+	</form>
+
+{% endblock %}

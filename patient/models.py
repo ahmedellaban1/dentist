@@ -23,9 +23,11 @@ class Operation(models.Model):
     patient = models.ForeignKey(Patient, null=False, blank=False, on_delete=models.CASCADE)
     user = models.ForeignKey(User, blank=False, null=False, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=15, null=False, blank=False)
-    datetime = models.DateTimeField(auto_now=True)
+    datetime = models.DateTimeField(auto_now_add=True,auto_created=True)
     price = models.IntegerField(blank=False, null=False)
     description = models.TextField(max_length=1000, blank=True, null=True)
+    remaining_amount = models.IntegerField(null=False, blank=False, default=0)
+
 
     def __str__(self):
         return f"op_id {self.id}, op-name{self.name}, patient-name {self.patient.full_name}, username {self.user.username}"
@@ -42,7 +44,7 @@ class Prescription(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
     patient = models.ForeignKey(Patient, null=False, blank=False, on_delete=models.CASCADE)
     user = models.ForeignKey(User, blank=False, null=False, on_delete=models.DO_NOTHING)
-    datetime = models.DateTimeField(auto_now=True)
+    datetime = models.DateTimeField(auto_now_add=True,auto_created=True)
     medicine = models.TextField(max_length=500)
 
     def __str__(self):

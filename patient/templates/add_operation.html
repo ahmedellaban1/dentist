@@ -1,0 +1,80 @@
+{% extends 'base_profile.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block profile %}
+<section class="user-dashboard page-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-inline dashboard-menu text-center">
+          <li><a href="dashboard.html">الادوية</a></li>
+          <li><a href="order.html">فواتير</a></li>
+          <li><a class="active" href="">العمليات</a></li>
+          <li><a href="{% url 'patient:patient_details' id=patient.id full_name=patient.full_name  %}">معلومات المريض</a></li>
+        </ul>
+
+        <div class="dashboard-wrapper dashboard-user-profile">
+          <div class="media">
+
+            <div class="media-body">
+
+                <form method="POST" enctype="multipart/form-data" style="text-align:right;">
+                    <h4 class="widget-title" style="text-align:right; font-family:monospace; font-size:30px;">إضافة عملية </h4>
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                    <input class="btn btn-main text-center w-100" type="submit" value="حفظ">
+                    {% endbuttons %}
+                </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</section>
+{% endblock %}
+
+
+{% block operation %}
+
+    <div class="col-md-9">
+
+			<div class="row">
+			<!-- patients -->
+			{% for op in operations %}
+			<div class="col-md-3">
+				<div class="product-item">
+					<div class="product-thumb">
+						<span class="bage">{{op.remaining_amount}}</span>
+						<img class="img-responsive" src="{% static 'images/Ticket.png' %}" alt="Ticket-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+									<a href="{% url 'patient:operation_details' id=op.patient.id full_name=op.patient.full_name op_id=op.id%}">
+									<span  data-toggle="modal" data-target="#product-modal">
+										<i class="tf-ion-ios-search-strong"></i>
+									</span>
+									</a>
+								</li>
+							</ul>
+                      	</div>
+					</div>
+					<div class="product-content">
+						<h4>{{op.name}}</h4>
+						<p class="price">{{op.datetime}}</p>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+            </div>
+        </div>
+
+{% endblock %}
+
+

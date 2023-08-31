@@ -1,0 +1,85 @@
+{% extends 'base_profile.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block profile %}
+<section class="user-dashboard page-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-inline dashboard-menu text-center">
+          <li><a href="dashboard.html">الادوية</a></li>
+          <li><a href="order.html">فواتير</a></li>
+          <li><a href="{% url 'patient:add_operation' id=operation.patient.id full_name=operation.patient.full_name %}">العمليات</a></li>
+          <li><a href="{% url 'patient:patient_details' id=operation.patient.id full_name=operation.patient.full_name  %}">معلومات المريض</a></li>
+        </ul>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+</section>
+
+        <div class="dashboard-wrapper dashboard-user-profile">
+          <div class="media">
+            <div class="pull-left text-center" href="#!">
+            </div>
+            <div class="media-body">
+              <ul class="user-profile-list" style="text-align:right;">
+                <li>{{operation.id}}<span>: رقم العملية  </span></li>
+                <li>{{operation.patient.full_name}}<span>: اسم المريض </span></li>
+                <li>{{operation.name}}<span>: اسم العملية </span></li>
+                <li>{{operation.datetime}}<span>: التاريخ  </span></li>
+                <li>{{operation.price}}<span>: سعر العملية </span></li>
+                <li>{{operation.description}}<span>: وصف العملية </span></li>
+                <li>{{operation.remaining_amount}}<span>: المبلغ المتبقي  </span></li>
+                <input class="btn btn-main text-center " style="font-size:15px" type="submit" value="إضافة فاتوره">
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+        <div class="dashboard-wrapper dashboard-user-profile ">
+          <div class="media">
+            <div class="media-body">
+                <form method="POST" enctype="multipart/form-data" style="text-align:right;">
+                    <h4 class="widget-title" style="text-align:right; font-family:monospace; font-size:30px;">إضافة صورة</h4>
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                    <input class="btn btn-main text-center w-100" style="font-size:15px" type="submit" value="حفظ">
+                    {% endbuttons %}
+                </form>
+            </div>
+          </div>
+        </div>
+</section>
+{% endblock %}
+
+{% block image %}
+
+    <div class="col-md-9">
+
+			<div class="row">
+			<!-- patients -->
+			{% for image in images %}
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<a href="{{ image.image.url}}" target="_blank"><span class="bage">عرض</span></a>
+						<img class="img-responsive" src="{{ image.image.url}}" alt="Ticket-img" />
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+{% endblock %}
+
+
+
