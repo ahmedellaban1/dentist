@@ -21,8 +21,9 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls'),),
+    path('accounts/', include('accounts.urls'), name="accounts"),
+    path('patient/', include('patient.urls')),
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls'), name='dashboard')
 ]
