@@ -48,6 +48,10 @@
                   <input class="btn btn-main text-center " disabled style="font-size:15px" type="submit" value="تم السداد">
                   {% endif %}
 
+                  <a href="{% url 'patient:edit_operation' id=operation.id %}">
+                    <input class="btn btn-main text-center " style="font-size:15px" type="submit" value="تعديل العملية">
+                 </a>
+
               </ul>
             </div>
           </div>

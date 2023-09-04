@@ -11,7 +11,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     type = models.CharField(max_length=12, choices=TYPE, default=TYPE[1][1])
     experience = models.FloatField(null=True, blank=True, default=0)
-    salary = models.IntegerField(null=False, blank=False)
+    salary = models.IntegerField(null=True)
     date_joined = models.DateTimeField(auto_now=True)
 
     @receiver(post_save, sender=User)

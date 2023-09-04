@@ -47,3 +47,12 @@ class PrescriptionForm(forms.ModelForm):
     class Meta:
         model = Prescription
         fields = ['medicine', ]
+
+
+class EditOperationForm(forms.ModelForm):
+    class Meta:
+        model = Operation
+        fields = ['description']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['description'].label = "الوصف "

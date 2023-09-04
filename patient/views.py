@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import AddPatientForm, Patient, Operation, AddOperationForm, AddOperationImage, OperationImage, PrescriptionForm
+from .forms import (AddPatientForm, Patient, Operation, AddOperationForm,
+                    AddOperationImage, OperationImage, PrescriptionForm,
+                    EditOperationForm)
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .filters import PatientFilter
@@ -90,13 +92,13 @@ def operation_details(request, *args, **kwargs):
 def edit_operation(request, *args, **kwargs):
     operation = get_object_or_404(Operation, id=kwargs['id'])
     if request.method == "POST":
-        form = AddOperationForm(request.POST, instance=operation)
+        form = EditOperationForm(request.POST, instance=operation)
         if form.is_valid():
             form.save()
         return redirect('patient:operation_details', id=operation.patient.id, full_name=operation.patient.full_name, op_id=operation.id)
 
     else:
-        form = AddOperationForm(instance=operation)
+        form = EditOperationForm(instance=operation)
 
     context = {
         "page_title": f"تعديل عملية {operation.id}",
