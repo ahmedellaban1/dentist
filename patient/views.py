@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import AddPatientForm, Patient, Operation, AddOperationForm, AddOperationImage, OperationImage
+from .forms import AddPatientForm, Patient, Operation, AddOperationForm, AddOperationImage, OperationImage, PrescriptionForm
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .filters import PatientFilter
@@ -120,3 +120,24 @@ def search_patient(request, *args, **kwargs):
     }
 
     return render(request, 'search_patient.html', context)
+
+
+@login_required
+def add_prescription(request, *args, **kwargs):
+    form = PrescriptionForm(request.POST)
+    patient = get_object_or_404(Patient, id=kwargs['id'], full_name=kwargs['full_name'])
+    if request.method == 'POST':
+        if form.is_valid():
+            over_ride_form = form.save(commit=False)
+            over_ride_form.user = request.user
+            over_ride_form.patient = patient
+            over_ride_form.save()
+            return redirect(request.META['HTTP_REFERER'])
+    else:
+        form = AddOperationForm()
+    context = {
+        "page_title": 'إضافة روشتة',
+        "form": form,
+        "patient": patient
+    }
+    return render(request, 'add_prescription.html', context)

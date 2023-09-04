@@ -1,5 +1,5 @@
 from django import forms
-from .models import Patient, Operation, OperationImage
+from .models import Patient, Operation, OperationImage, Prescription
 
 
 class AddPatientForm(forms.ModelForm):
@@ -42,3 +42,8 @@ class AddOperationImage(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['image'].label = ''
 
+
+class PrescriptionForm(forms.ModelForm):
+    class Meta:
+        model = Prescription
+        fields = ['medicine', ]
