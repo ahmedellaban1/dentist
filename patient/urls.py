@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import add_patient, get_patient, add_operation, operation_details, edit_operation, search_patient
+from .views import (add_patient, get_patient, add_operation,
+                    operation_details, edit_operation,
+                    search_patient, add_prescription, get_prescription)
 
 app_name = "patient"
 urlpatterns = [
@@ -9,4 +11,6 @@ urlpatterns = [
     path('patient_details/operations/<int:id>-<str:full_name>', add_operation, name='add_operation'),
     path('patient_details/operations/<int:id>-<str:full_name>/<int:op_id>', operation_details, name='operation_details'),
     path('patient_details/operations/edit_operation/<int:id>', edit_operation, name='edit_operation'),
+    path('patient_details/operations/add_prescription/<int:id>-<int:op_id>-<str:full_name>', add_prescription, name='add_prescription'),
+    path('patient_details/operations/get_prescription/<int:id>', get_prescription, name='get_prescription'),
 ]

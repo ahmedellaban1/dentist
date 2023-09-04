@@ -50,7 +50,7 @@
                   <a href="{% url 'patient:edit_operation' id=operation.id %}">
                     <input class="btn btn-main text-center " style="font-size:15px" type="submit" value="تعديل العملية">
                  </a>
-                 <a href="{% url 'dashboard:billing' id=operation.id %}">
+                 <a href="{% url 'patient:add_prescription' id=operation.patient.id op_id=operation.id full_name=operation.patient.full_name%}">
                     <input class="btn btn-main text-center " style="font-size:15px" type="submit" value="إضافة روشتة">
                  </a>
 
@@ -94,6 +94,3 @@
         {% endfor %}
 
 {% endblock %}
-
-
-

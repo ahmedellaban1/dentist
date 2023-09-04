@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import (AddPatientForm, Patient, Operation, AddOperationForm,
                     AddOperationImage, OperationImage, PrescriptionForm,
-                    EditOperationForm)
+                    EditOperationForm, Prescription)
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .filters import PatientFilter
@@ -128,18 +128,33 @@ def search_patient(request, *args, **kwargs):
 def add_prescription(request, *args, **kwargs):
     form = PrescriptionForm(request.POST)
     patient = get_object_or_404(Patient, id=kwargs['id'], full_name=kwargs['full_name'])
+    operation = get_object_or_404(Operation, id=kwargs['op_id'], patient=patient)
+    prescriptions = Prescription.objects.filter(operation=operation)
     if request.method == 'POST':
         if form.is_valid():
             over_ride_form = form.save(commit=False)
             over_ride_form.user = request.user
             over_ride_form.patient = patient
+            over_ride_form.operation = operation
             over_ride_form.save()
-            return redirect(request.META['HTTP_REFERER'])
+            instance = Prescription.objects.filter(patient=patient, operation=operation).last()
+            return redirect('patient:get_prescription', id=instance.id)
+            # return redirect(request.META['HTTP_REFERER'])
     else:
         form = PrescriptionForm()
     context = {
         "page_title": 'إضافة روشتة',
         "form": form,
-        "patient": patient
+        "operation": operation,
+        "patient": patient,
+        "prescriptions": prescriptions,
     }
     return render(request, 'add_prescription.html', context)
+
+
+def get_prescription(request, *args, **kwargs):
+    prescription = get_object_or_404(Prescription, id=kwargs['id'])
+    context = {
+        "prescription": prescription,
+    }
+    return render(request, 'get_prescription.html', context)
