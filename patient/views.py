@@ -136,7 +136,7 @@ def add_prescription(request, *args, **kwargs):
             over_ride_form.save()
             return redirect(request.META['HTTP_REFERER'])
     else:
-        form = AddOperationForm()
+        form = PrescriptionForm()
     context = {
         "page_title": 'إضافة روشتة',
         "form": form,

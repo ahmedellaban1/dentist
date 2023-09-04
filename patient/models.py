@@ -43,7 +43,8 @@ class Prescription(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
     patient = models.ForeignKey(Patient, null=False, blank=False, on_delete=models.CASCADE)
     user = models.ForeignKey(User, blank=False, null=False, on_delete=models.DO_NOTHING)
-    datetime = models.DateTimeField(auto_now_add=True,auto_created=True)
+    operation = models.ForeignKey(Operation, on_delete=models.CASCADE)
+    datetime = models.DateTimeField(auto_now_add=True, auto_created=True)
     medicine = models.TextField(max_length=500)
 
     def __str__(self):
