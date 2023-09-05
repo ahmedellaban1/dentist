@@ -16,9 +16,14 @@ def home(request, *args, **kwargs):
         if form.is_valid():
             over_ride_form = form.save(commit=False)
             over_ride_form.user = request.user
-            over_ride_form.patient = get_object_or_404(Patient, id=form.cleaned_data['get_patient'])
-            over_ride_form.save()
-        return redirect(request.META['HTTP_REFERER'])
+            try:
+                patient = get_object_or_404(Patient, id=form.cleaned_data['get_patient'])
+                over_ride_form.patient = patient
+                over_ride_form.save()
+                return redirect(request.META['HTTP_REFERER'])
+            except:
+                form.add_error(None, "لا يوجد مريض بهذا الرقم التعريفي")
+
     else:
         form = TicketsForm()
 
@@ -28,6 +33,7 @@ def home(request, *args, **kwargs):
         'tickets': queryset,
     }
     return render(request, 'home.html', context)
+
 
 @login_required
 def billing(request, *args, **kwargs):

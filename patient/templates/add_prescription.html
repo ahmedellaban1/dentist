@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="list-inline dashboard-menu text-center">
-          <li><a href="">الادوية</a></li>
+          <li><a href="{% url 'patient:get_all_prescription' id=patient.id %}">الادوية</a></li>
           <li><a href="">فواتير</a></li>
           <li><a href="{% url 'patient:add_operation' id=operation.patient.id full_name=operation.patient.full_name %}">العمليات</a></li>
           <li><a href="{% url 'patient:patient_details' id=patient.id full_name=patient.full_name  %}">معلومات المريض</a></li>
@@ -46,7 +46,7 @@
 			<div class="col-md-3">
 				<div class="product-item">
 					<div class="product-thumb">
-						<span class="bage">{{prescription.id}}</span>
+						<span class="bage">ID: {{prescription.id}}</span>
 						<img class="img-responsive" src="{% static 'images/Ticket.png' %}" alt="Ticket-img" />
 						<div class="preview-meta">
 							<ul>

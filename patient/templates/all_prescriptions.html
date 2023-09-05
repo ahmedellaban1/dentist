@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block form %}
+
+
+{% endblock %}
+
+{% block patients %}
+			{% for prescription in all_prescriptions %}
+			<div class="col-md-3">
+				<div class="product-item">
+					<div class="product-thumb">
+						<span class="bage">ID : {{prescription.id}}</span>
+						<img class="img-responsive" src="{% static 'images/Ticket.png' %}" alt="Ticket-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+									<a href="{% url 'patient:get_prescription' id=prescription.id  %}">
+									<span  data-toggle="modal" data-target="#product-modal">
+										<i class="tf-ion-ios-search-strong"></i>
+									</span>
+									</a>
+								</li>
+							</ul>
+                      	</div>
+					</div>
+					<div class="product-content">
+						<h4>{{prescription.patient.full_name}}</h4>
+						<p class="price">{{prescription.datetime |date:" d, m, Y"}}</p>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+{% endblock %}

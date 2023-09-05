@@ -33,12 +33,7 @@
 					</div>
 					<div class="product-content">
 						<h4>{{ticket.patient.full_name}}</h4>
-						{% if ticket.reservation_date != ticket.date %}
-						<p class="price" style="color:red;">{{ticket.reservation_date|date:" d, m, Y"}}</p>
-						{% endif %}
-						{% if ticket.reservation_date == ticket.date %}
-						<p class="price">{{ticket.reservation_date}}</p>
-						{% endif %}
+						<p class="price">{{ticket.reservation_date |date:" d, m, Y"}}</p>
 					</div>
 				</div>
 			</div>

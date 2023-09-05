@@ -158,3 +158,12 @@ def get_prescription(request, *args, **kwargs):
         "prescription": prescription,
     }
     return render(request, 'get_prescription.html', context)
+
+def get_all_prescription(request, *args, **kwargs):
+    patient = get_object_or_404(Patient, id=kwargs['id'])
+    all_prescriptions = Prescription.objects.filter(patient=patient)
+    context = {
+        "page_title": "الادوية",
+        "all_prescriptions": all_prescriptions,
+    }
+    return render(request, 'all_prescriptions.html', context)
