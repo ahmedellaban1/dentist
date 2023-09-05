@@ -13,8 +13,6 @@ class Ticket(models.Model):
     date = models.DateField(auto_now=True)
     time = models.TimeField(auto_now=True)
     reservation_date = models.DateField(auto_created=True)
-    amount_paid = models.IntegerField(null=False, blank=False, default=0)
-    notes = models.TextField(max_length=100)
     examinationConsultation = models.CharField(max_length=12, choices=TICKET_TYPE, default=TICKET_TYPE[0][0])
 
     def __str__(self):

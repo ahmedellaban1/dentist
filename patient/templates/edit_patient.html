@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+{% block patients %}
+	<form method="POST" enctype="multipart/form-data" onsubmit="disableButton(this)"  style="text-align:right;">
+		<h4 class="widget-title" style="text-align:right; font-family:monospace; font-size:30px;">تعديل بيانات المريض  </h4>
+		{% csrf_token %}
+		{% bootstrap_form form %}
+		<input class="btn btn-main text-center w-100"  type="submit" value="حفظ التعديلات" id="submitButton">
+	</form>
+
+{% endblock %}

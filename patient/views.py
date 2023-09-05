@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import (AddPatientForm, Patient, Operation, AddOperationForm,
                     AddOperationImage, OperationImage, PrescriptionForm,
-                    EditOperationForm, Prescription)
+                    EditOperationForm, Prescription, EditPatientForm)
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .filters import PatientFilter
@@ -108,6 +108,25 @@ def edit_operation(request, *args, **kwargs):
 
 
 @login_required
+def edit_patient(request, *args, **kwargs):
+    patient = get_object_or_404(Patient, id=kwargs['id'], full_name=kwargs['full_name'])
+    if request.method == "POST":
+        form = EditPatientForm(request.POST, instance=patient)
+        if form.is_valid():
+            form.save()
+        return redirect('patient:patient_details', id=patient.id, full_name=patient.full_name)
+
+    else:
+        form = EditOperationForm(instance=patient)
+
+    context = {
+        "page_title": f"تعديل مريض رقم {patient.id}",
+        "form": form,
+    }
+    return render(request, 'edit_patient.html', context)
+
+
+@login_required
 def search_patient(request, *args, **kwargs):
     your_model_filter = PatientFilter(request.GET, queryset=Patient.objects.all())
     filtered_queryset = your_model_filter.qs
@@ -152,6 +171,7 @@ def add_prescription(request, *args, **kwargs):
     return render(request, 'add_prescription.html', context)
 
 
+@login_required
 def get_prescription(request, *args, **kwargs):
     prescription = get_object_or_404(Prescription, id=kwargs['id'])
     context = {
@@ -159,6 +179,7 @@ def get_prescription(request, *args, **kwargs):
     }
     return render(request, 'get_prescription.html', context)
 
+@login_required
 def get_all_prescription(request, *args, **kwargs):
     patient = get_object_or_404(Patient, id=kwargs['id'])
     all_prescriptions = Prescription.objects.filter(patient=patient)
@@ -167,3 +188,13 @@ def get_all_prescription(request, *args, **kwargs):
         "all_prescriptions": all_prescriptions,
     }
     return render(request, 'all_prescriptions.html', context)
+
+
+@login_required
+def get_operations_done(request, *args, **kwargs):
+    operations = Operation.objects.filter(patient_id=kwargs['id'], remaining_amount=0)
+    context = {
+        "page_title": "العمليات التامة",
+        "operations": operations,
+    }
+    return render(request, 'done_operations.html', context)

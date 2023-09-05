@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block form %}
+
+
+{% endblock %}
+
+{% block patients %}
+			{% for operation in operations %}
+			<div class="col-md-3">
+				<div class="product-item">
+					<div class="product-thumb">
+						<span class="bage">ID : {{operation.id}}</span>
+						<img class="img-responsive" src="{% static 'images/Ticket.png' %}" alt="Ticket-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+									<a href="{% url 'patient:operation_details' id=operation.patient.id full_name=operation.patient.full_name op_id=operation.id %}">
+									<span  data-toggle="modal" data-target="#product-modal">
+										<i class="tf-ion-ios-search-strong"></i>
+									</span>
+									</a>
+								</li>
+							</ul>
+                      	</div>
+					</div>
+					<div class="product-content">
+						<h4>{{operation.patient.full_name}}</h4>
+						<p class="price">{{operation.datetime |date:" d, m, Y"}}</p>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+{% endblock %}

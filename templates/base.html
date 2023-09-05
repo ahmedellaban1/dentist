@@ -67,7 +67,7 @@
 								font-family="AustinBold, Austin" font-weight="bold">
 								<g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
 									<text id="AVIATO">
-										<tspan x="108.94" y="325">AVIATO</tspan>
+										<tspan x="108.94" y="325">Implant</tspan>
 									</text>
 								</g>
 							</g>
@@ -126,8 +126,16 @@
 								<div class="col-lg-6 col-md-6 mb-sm-3">
 									<ul>
 										<a href="{% url 'logout' %}">
-										<li class="dropdown-header">تسجيل خروج</li>
-											</a>
+											<li class="dropdown-header">تسجيل خروج</li>
+											<hr>
+										</a>
+										<a href="{% url 'accounts:dr_nagib_cv' %}">
+											<li class="dropdown-header">Dr.Mohamed Nagib</li>
+											<hr>
+										</a>
+										<a href="{% url 'accounts:about_developer' %}">
+											<li class="dropdown-header">About Developer</li>
+										</a>
 									</ul>
 								</div>
 

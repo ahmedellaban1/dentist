@@ -20,6 +20,16 @@ class AddPatientForm(forms.ModelForm):
         self.fields['description'].label = "وصف حالة المريض او اي امراض متعلقة"
 
 
+class EditPatientForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        fields = ['description']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['description'].label = "وصف حالة المريض او اي امراض متعلقة"
+
+
 class AddOperationForm(forms.ModelForm):
     class Meta:
         model = Operation

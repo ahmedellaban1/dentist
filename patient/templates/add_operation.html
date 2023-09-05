@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <ul class="list-inline dashboard-menu text-center">
           <li><a href="{% url 'patient:get_all_prescription' id=patient.id %}">الادوية</a></li>
-          <li><a href="order.html">فواتير</a></li>
+          <li><a href="{% url 'patient:get_operations_done' id=patient.id %}">العمليات التامة</a></li>
           <li><a class="active" href="">العمليات</a></li>
           <li><a href="{% url 'patient:patient_details' id=patient.id full_name=patient.full_name  %}">معلومات المريض</a></li>
         </ul>
@@ -43,29 +43,31 @@
 			<div class="row">
 			<!-- patients -->
 			{% for op in operations %}
-			<div class="col-md-3">
-				<div class="product-item">
-					<div class="product-thumb">
-						<span class="bage">{{op.remaining_amount}}</span>
-						<img class="img-responsive" src="{% static 'images/Ticket.png' %}" alt="Ticket-img" />
-						<div class="preview-meta">
-							<ul>
-								<li>
-									<a href="{% url 'patient:operation_details' id=op.patient.id full_name=op.patient.full_name op_id=op.id%}">
-									<span  data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search-strong"></i>
-									</span>
-									</a>
-								</li>
-							</ul>
-                      	</div>
-					</div>
-					<div class="product-content">
-						<h4>{{op.name}}</h4>
-						<p class="price">{{op.datetime}}</p>
-					</div>
-				</div>
-			</div>
+                {% if op.remaining_amount != 0 %}
+                <div class="col-md-3">
+                    <div class="product-item">
+                        <div class="product-thumb">
+                            <span class="bage">{{op.remaining_amount}}</span>
+                            <img class="img-responsive" src="{% static 'images/Ticket.png' %}" alt="Ticket-img" />
+                            <div class="preview-meta">
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'patient:operation_details' id=op.patient.id full_name=op.patient.full_name op_id=op.id%}">
+                                        <span  data-toggle="modal" data-target="#product-modal">
+                                            <i class="tf-ion-ios-search-strong"></i>
+                                        </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h4>{{op.name}}</h4>
+                            <p class="price">{{op.datetime}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
 			{% endfor %}
             </div>
         </div>

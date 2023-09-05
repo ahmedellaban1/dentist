@@ -4,8 +4,6 @@ from rules.help_function import get_date
 from django.core.exceptions import ValidationError
 
 
-
-
 class TicketsForm(forms.ModelForm):
     get_patient = forms.IntegerField()
 
@@ -15,7 +13,7 @@ class TicketsForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields = ['get_patient', 'reservation_date', 'amount_paid', 'notes', 'examinationConsultation']
+        fields = ['get_patient', 'reservation_date', 'examinationConsultation']
 
     def clean(self):
         cleaned_data = super().clean()
@@ -34,18 +32,13 @@ class TicketsForm(forms.ModelForm):
         self.fields['reservation_date'].dafult_value =''
         self.fields['reservation_date'].initial = f"{get_date()}"
 
-
-        self.fields['amount_paid'].label =  "المبلغ المدفوع"
-        self.fields['amount_paid'].dafult_value =''
-
-        self.fields['notes'].label =  "ملاظات الاستقبال"
-        self.fields['notes'].dafult_value =''
-
         self.fields['examinationConsultation'].label = " كشف / استشارة"
         self.fields['examinationConsultation'].dafult_value =''
 
         self.fields['examinationConsultation'].label = " كشف / استشارة"
         self.fields['examinationConsultation'].dafult_value =''
+
+
 class BillingForm(forms.ModelForm):
     class Meta:
         model = Billing

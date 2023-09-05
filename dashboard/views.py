@@ -81,3 +81,4 @@ def get_all_billing(request, *args, **kwargs):
         "billing": billing,
     }
     return render(request, 'operation_billing.html', context)
+

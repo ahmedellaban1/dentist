@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <ul class="list-inline dashboard-menu text-center">
           <li><a href="{% url 'patient:get_all_prescription' id=patient.id %}">الادوية</a></li>
-          <li><a href="">فواتير</a></li>
+          <li><a href="{% url 'patient:get_operations_done' id=patient.id %}">العمليات التامة</a></li>
           <li><a href="{% url 'patient:add_operation' id=operation.patient.id full_name=operation.patient.full_name %}">العمليات</a></li>
           <li><a href="{% url 'patient:patient_details' id=patient.id full_name=patient.full_name  %}">معلومات المريض</a></li>
         </ul>

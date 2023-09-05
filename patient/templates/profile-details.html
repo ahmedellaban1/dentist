@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <ul class="list-inline dashboard-menu text-center">
           <li><a href="{% url 'patient:get_all_prescription' id=patient.id %}">الادوية</a></li>
-          <li><a href="order.html">فواتير</a></li>
+          <li><a href="{% url 'patient:get_operations_done' id=patient.id %}">العمليات التامة</a></li>
           <li><a href="{% url 'patient:add_operation' id=patient.id full_name=patient.full_name %}">العمليات</a></li>
           <li><a class="active" href="">معلومات المريض</a></li>
         </ul>
@@ -29,7 +29,9 @@
                 <li>{{patient.age}}<span>: العمر  </span></li>
                 <li>{{total_remaining_amount}}<span>: حساب جاري  </span></li>
                 <li>{{patient.description}}<span>: الحالة المرضية  </span></li>
-
+                  <a href="{% url 'patient:edit_patient' id=patient.id full_name=patient.full_name %}">
+                    <input class="btn btn-main text-center " style="font-size:15px" type="submit" value="تعديل بيانات المريض ">
+                 </a>
               </ul>
             </div>
           </div>
