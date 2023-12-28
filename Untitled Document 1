@@ -1,0 +1,28 @@
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+def export_as_pdf(request):
+    template_path = 'your_template.html'
+    context = {'prescription': prescription_data}  # Replace with your data
+
+    # Render the template with the context
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # Set the PDF document dimensions
+    pdf_width = '10cm'
+    pdf_height = '7cm'
+    options = {
+        'page-size': 'Custom',
+        'page-width': pdf_width,
+        'page-height': pdf_height,
+    }
+
+    # Create a PDF document
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="export.pdf"'
+    pisa.CreatePDF(html, dest=response, encoding='UTF-8', show_error_as_pdf=True, **options)
+
+    return response

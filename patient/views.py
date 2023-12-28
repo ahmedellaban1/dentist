@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import (AddPatientForm, Patient, Operation, AddOperationForm,
                     AddOperationImage, OperationImage, PrescriptionForm,
-                    EditOperationForm, Prescription, EditPatientForm)
+                    EditOperationForm, Prescription, EditPatientForm, )
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .filters import PatientFilter
@@ -117,7 +117,7 @@ def edit_patient(request, *args, **kwargs):
         return redirect('patient:patient_details', id=patient.id, full_name=patient.full_name)
 
     else:
-        form = EditOperationForm(instance=patient)
+        form = EditPatientForm(instance=patient)
 
     context = {
         "page_title": f"تعديل مريض رقم {patient.id}",

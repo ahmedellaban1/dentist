@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (add_patient, get_patient, add_operation,
                     operation_details, edit_operation,
-                    search_patient, add_prescription, get_prescription, get_all_prescription, edit_patient, get_operations_done)
+                    search_patient, add_prescription, get_prescription, get_all_prescription, edit_patient,
+                    get_operations_done, )
 
 app_name = "patient"
 urlpatterns = [

@@ -3,19 +3,17 @@
 <html>
 <head>
     <title>طباعة الروشتة رقم ({{prescription.id}})</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.10.2/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.0/html2canvas.min.js"></script>
-    <script src="{% static 'js/export.js' %}"></script>
 </head>
 <body>
-    <div id="contentToExport">
+    <div id="">
         <div style="text-align:center">
             <h1>PATIENT ID: {{ prescription.patient.id }}</h1>
         </div>
         <p style="opacity:50%">Date: {{ prescription.datetime|date:"d/m/Y" }}</p>
-        <p>{{ prescription.medicine }}</p>
+        <p style="font-size:30px; font-weight: bold;">{{ prescription.medicine }}</p>
         <p style="text-align:center">تحذير: تحفظ الادوية بعيدا عن متناول الاطفال<br>يجب اتباع ارشادات الطبيب جيدا في الجرعة المحددة والوقت </p>
     </div>
-    <button onclick="exportAsPdf()">Export as PDF</button>
+
+
 </body>
 </html>
